@@ -1,10 +1,7 @@
 import React, { useCallback, useState} from "react";
-// import { BuildingsInfo } from './BuildingsInfo';
-// import { MeetingRoomsInfo } from './MeetingRoomsInfo';
 import { useFetchAllBuildingsData } from './hooks/useFetchAllBuildingsData';
 import { BuildingsOverview } from './MeetingsAndRoomsOverview';
 import { AddMeeting } from './AddMeeting';
-// import { getFreeRoomsAndRunningMeetings} from './helper';
 
 const VIEW_MAP = {
   'CREATE': AddMeeting,
@@ -35,8 +32,9 @@ export const Home = () => {
   const Component = VIEW_MAP[viewStatus];
 
   return ( 
-  <div>
-    <Component data={data} onAction={onAction} />
-  </div>
+    <div className="container flex flex-col mx-auto h-full justify-center	items-center mt-4">
+       <Component data={data} onAction={onAction} />
+    </div>
+   
  )
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const FreeMeetingRoomsList = ({ rooms, onAction, onSave }) => (
-  <div>
+  <>
       {
         rooms?.length ? rooms.map((room) => (
             <div onClick={() => onAction(room.id)} key={`${room.id}_${room.name}`} data-id="meetingRoomId" >
@@ -12,6 +12,6 @@ export const FreeMeetingRoomsList = ({ rooms, onAction, onSave }) => (
         )) : <div> No Free Room in this building </div>
             
      } 
-    <button onClick={onSave}> save </button>
-  </div>
+    <button className="btn-primary-blue mb-2" onClick={onSave}> save </button>
+  </>
 )

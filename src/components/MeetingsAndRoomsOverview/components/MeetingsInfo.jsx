@@ -1,5 +1,5 @@
 import React, {useMemo } from 'react';
-import { getMeetingsTotalMeetingsOnSpecificDay } from '../helper';
+import { getMeetingsTotalMeetingsOnSpecificDay } from '../../helper';
 
 export const MeetingsInfo = ({ data, currentlyRunningCount }) => {
 
@@ -15,11 +15,11 @@ export const MeetingsInfo = ({ data, currentlyRunningCount }) => {
     const totalMeetingsToday = getMeetingsTotalMeetingsOnSpecificDay(meetings);
 
     return (
-        <>
-        <h2>Meetings</h2>
-        <div> Total { totalMeetingsToday ? totalMeetingsToday.length : 0 } today</div>
-        <div>Total {currentlyRunningCount} going on now</div>
-        </>
+        <div className="mb-2 p-1">
+            <div className="font-medium text-lg	">Meetings</div>
+            <div className="text-sm"> Total { totalMeetingsToday ? totalMeetingsToday.length : 0 } today</div>
+            <div className="text-sm">Total {currentlyRunningCount} going on now</div>
+        </div>
     )
    
 

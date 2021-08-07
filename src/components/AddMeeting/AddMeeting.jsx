@@ -12,14 +12,14 @@ export const AddMeeting = ({ data, onAction }) => {
     const [newMeeting, setNewMeeting] = useState({});
     const [isNext, setNextPage ] = useState(false);
 
-    const meetingRooms = useMemo(() => {
-        return data ? data.reduce((accm, building) => {
-            if(building?.meetingRooms){
-                accm.push(...building.meetingRooms)
-            }
-            return accm;
-        }, []) : []
-    }, [data])
+    // const meetingRooms = useMemo(() => {
+    //     return data ? data.reduce((accm, building) => {
+    //         if(building?.meetingRooms){
+    //             accm.push(...building.meetingRooms)
+    //         }
+    //         return accm;
+    //     }, []) : []
+    // }, [data])
 
     const freeRoomsInBuilding = useMemo(() => getFreeRoomsInBuildings(data, selectedBuilding, {
         startTime: newMeeting.startTime,
@@ -58,14 +58,14 @@ export const AddMeeting = ({ data, onAction }) => {
     }
 
     return (
-        <div>
+        <div className="container w-1/2 border-2 rounded flex flex-col">
             {
                 isNext 
                 ? <FreeMeetingRoomsList rooms={freeRoomsInBuilding} onAction={selectRoom} onSave={onSave}/>
                 : <AddMeetingDetailsForm onAction={() => setNextPage(true)} onChange={onChangeHandler} data={data} selectedBuilding={selectedBuilding}/>   
                  
             }
-             <button onClick={closeAddMeetingView}> close</button>
+             <button className="btn-primary-blue" onClick={closeAddMeetingView}> close</button>
         </div>
     )
 };

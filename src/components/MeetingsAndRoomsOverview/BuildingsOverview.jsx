@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
-import { BuildingsInfo } from './BuildingsInfo';
-import {MeetingRoomsInfo  } from './MeetingRoomsInfo';
-import { MeetingsInfo } from './MeetingsInfo';
+import { BuildingsInfo } from './components/BuildingsInfo';
+import {MeetingRoomsInfo  } from './components/MeetingRoomsInfo';
+import { MeetingsInfo } from './components/MeetingsInfo';
 import { getFreeRoomsAndRunningMeetings } from '../helper';
 
 
@@ -23,10 +23,11 @@ export const BuildingsOverview = ({ data, onAction }) => {
         action: { type: 'CREATE'}
     }), [onAction]);
 
-   return ( <div>
-    <BuildingsInfo data={data}/>
-    <MeetingRoomsInfo data={meetingRooms} freeRooms={freeRooms}/>
-    <MeetingsInfo data={meetingRooms} currentlyRunningCount={currentRunningNumberOfMeetings}/>
-    <button onClick={addMeetingHandler}>Add Meeting</button>
-</div>)
+   return ( 
+    <div className="container w-1/2 border-2 rounded flex flex-col">
+        <BuildingsInfo data={data}/>
+        <MeetingRoomsInfo data={meetingRooms} freeRooms={freeRooms}/>
+        <MeetingsInfo data={meetingRooms} currentlyRunningCount={currentRunningNumberOfMeetings}/>
+        <button onClick={addMeetingHandler} className="btn-primary-blue">Add Meeting</button>
+    </div>)
 }
