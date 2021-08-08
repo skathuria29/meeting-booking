@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { getFreeRoomsInBuildings } from '../helper';
 import { useAddMeetingMutation } from '../hooks/useAddMeetingMutation';
 import { FreeMeetingRoomsList } from './FreeMeetingRoomsList';
 import { AddMeetingDetailsForm } from './AddMeetingDetailsForm';
+import { ButtonActions } from './ButtonActions';
 
 
 const DEAFULT_SELECTED_BUILDING = "-1"; //building id
@@ -12,14 +13,6 @@ export const AddMeeting = ({ data, onAction }) => {
     const [newMeeting, setNewMeeting] = useState({});
     const [isNext, setNextPage ] = useState(false);
 
-    // const meetingRooms = useMemo(() => {
-    //     return data ? data.reduce((accm, building) => {
-    //         if(building?.meetingRooms){
-    //             accm.push(...building.meetingRooms)
-    //         }
-    //         return accm;
-    //     }, []) : []
-    // }, [data])
 
     const freeRoomsInBuilding = useMemo(() => getFreeRoomsInBuildings(data, selectedBuilding, {
         startTime: newMeeting.startTime,
@@ -28,9 +21,6 @@ export const AddMeeting = ({ data, onAction }) => {
     }), [data, selectedBuilding, newMeeting]);
 
    
-    const closeAddMeetingView = () => onAction({
-        action: { type: 'DEFAULT'}
-    })
 
     const onChangeHandler = (e) => {
         const key = e.target.dataset.id;
@@ -50,22 +40,30 @@ export const AddMeeting = ({ data, onAction }) => {
     }))
 
     const [saveMeetingFn] = useAddMeetingMutation(newMeeting);
-    
 
-    const onSave  = () => {
-        //add validations later since every field is required
-        saveMeetingFn(newMeeting);
-    }
+    const onActionHandler = useCallback((action) => {
+        const { type } = action;
+        switch(type){
+            case 'SAVE': return  saveMeetingFn(newMeeting);
+            case 'NEXT': return  setNextPage(true);
+            case 'CLOSE': return  onAction({
+                action: { type: 'OVERVIEW'}
+            })
+        
+            default: return;
+        }
+    }, [newMeeting, onAction, saveMeetingFn]);
+
 
     return (
-        <div className="container w-1/2 border-2 rounded flex flex-col">
+        <div className="container w-1/2 border-2 rounded flex flex-col min-h-1/2">
             {
                 isNext 
-                ? <FreeMeetingRoomsList rooms={freeRoomsInBuilding} onAction={selectRoom} onSave={onSave}/>
+                ? <FreeMeetingRoomsList rooms={freeRoomsInBuilding} onAction={selectRoom} onSave={onActionHandler} selectedRoom ={newMeeting?.meetingRoomId}/>
                 : <AddMeetingDetailsForm onAction={() => setNextPage(true)} onChange={onChangeHandler} data={data} selectedBuilding={selectedBuilding}/>   
                  
             }
-             <button className="btn-primary-blue" onClick={closeAddMeetingView}> close</button>
+            <ButtonActions isNext={isNext} onAction={onActionHandler}/>
         </div>
     )
 };

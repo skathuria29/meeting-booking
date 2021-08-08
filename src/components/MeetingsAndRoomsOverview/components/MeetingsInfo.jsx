@@ -16,7 +16,7 @@ export const MeetingsInfo = ({ data, currentlyRunningCount }) => {
 
     return (
         <div className="mb-2 p-1">
-            <div className="font-medium text-lg	">Meetings</div>
+            <div className="font-medium text-lg	flex-1">Meetings</div>
             <div className="text-sm"> Total { totalMeetingsToday ? totalMeetingsToday.length : 0 } today</div>
             <div className="text-sm">Total {currentlyRunningCount} going on now</div>
         </div>

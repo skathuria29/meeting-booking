@@ -4,20 +4,19 @@ import { BuildingsOverview } from './MeetingsAndRoomsOverview';
 import { AddMeeting } from './AddMeeting';
 
 const VIEW_MAP = {
-  'CREATE': AddMeeting,
-  'DEFAULT': BuildingsOverview,
+  'ADD_MEETING': AddMeeting,
+  'OVERVIEW': BuildingsOverview,
 }
 
 export const Home = () => {
   const { data, loading, error } = useFetchAllBuildingsData();
-  const [ viewStatus, setViewStatus] = useState('DEFAULT');
+  const [ viewStatus, setViewStatus] = useState('OVERVIEW');
 
 
   const onAction = useCallback(({ action, payload = {}}) => {
     switch(action?.type){
-      case 'CREATE': return  setViewStatus('CREATE');
-      case 'SELECT_ROOMS': return setViewStatus('SELECT_ROOMS');
-      case 'DEFAULT': return setViewStatus('DEFAULT');
+      case 'ADD_MEETING': return  setViewStatus('ADD_MEETING');
+      case 'OVERVIEW': return setViewStatus('OVERVIEW');
       default: return
     }
   }, []);

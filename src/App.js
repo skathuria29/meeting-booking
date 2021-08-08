@@ -1,12 +1,8 @@
-// import logo from './logo.svg';
 import './index.css';
 import { Home } from './components/Home';
 
-
 const App = () => {
-  return (
-    <Home />
-  )
+  return(<Home />)
 }
 
 export default App;

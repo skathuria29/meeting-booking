@@ -16,7 +16,8 @@ code {
 } */
 
 html,
-body {
+body,
+#root {
   height: 100%;
 }
 @tailwind base;

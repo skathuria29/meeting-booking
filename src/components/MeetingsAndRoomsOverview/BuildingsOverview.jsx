@@ -20,11 +20,11 @@ export const BuildingsOverview = ({ data, onAction }) => {
     const { freeRooms, currentRunningNumberOfMeetings } = useMemo(() => getFreeRoomsAndRunningMeetings(meetingRooms), [meetingRooms]);
 
     const addMeetingHandler = useCallback(() => onAction({
-        action: { type: 'CREATE'}
+        action: { type: 'ADD_MEETING'}
     }), [onAction]);
 
    return ( 
-    <div className="container w-1/2 border-2 rounded flex flex-col">
+    <div className="container w-1/2 border-2 rounded flex flex-col min-h-1/2">
         <BuildingsInfo data={data}/>
         <MeetingRoomsInfo data={meetingRooms} freeRooms={freeRooms}/>
         <MeetingsInfo data={meetingRooms} currentlyRunningCount={currentRunningNumberOfMeetings}/>

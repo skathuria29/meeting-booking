@@ -34,6 +34,5 @@ export const AddMeetingDetailsForm = ({ onChange, onAction, data, selectedBuildi
                 }
             </div>
        </div>
-        <button className="btn-primary-blue mb-2 " onClick={onAction}>next</button>
     </>
 )
